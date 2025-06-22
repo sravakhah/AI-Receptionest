@@ -1,5 +1,7 @@
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import Chroma
+#from langchain.embeddings import HuggingFaceEmbeddings
+#from langchain.vectorstores import Chroma
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
 from langchain.document_loaders import CSVLoader
 
 loader = CSVLoader(file_path="products.csv")
