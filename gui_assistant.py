@@ -1,32 +1,31 @@
 import tkinter as tk
 from tkinter import scrolledtext
 import threading
-from product_chatbot import get_ai_response  # This is your assistant logic
+from product_chatbot import get_ai_response
 
 def on_button_click():
     chat_display.insert(tk.END, "🗣 Listening...\n")
     chat_display.see(tk.END)
     talk_button.config(state=tk.DISABLED)
-    threading.Thread(target=run_ai_response).start()
+    threading.Thread(target=run_assistant).start()
 
-def run_ai_response():
+def run_assistant():
     try:
-        response = get_ai_response()
-        chat_display.insert(tk.END, f"🤖 {response}\n\n")
+        reply = get_ai_response()
+        chat_display.insert(tk.END, f"🤖 {reply}\n\n")
     except Exception as e:
         chat_display.insert(tk.END, f"⚠️ Error: {e}\n\n")
     finally:
         chat_display.see(tk.END)
         talk_button.config(state=tk.NORMAL)
 
-# 🎨 Set up the window
+# Setup GUI window
 root = tk.Tk()
-root.title("Voice Assistant")
+root.title("Talking AI Assistant")
 root.geometry("600x500")
-root.configure(bg="#f0f0f0")  # Light background
+root.configure(bg="#f4f4f4")
 root.resizable(False, False)
 
-# 🎙 Button first (so it's visible above the chat)
 talk_button = tk.Button(
     root,
     text="🎙 Talk to Assistant",
@@ -37,9 +36,8 @@ talk_button = tk.Button(
     padx=10,
     pady=5
 )
-talk_button.pack(pady=(20, 10))  # Add some top margin
+talk_button.pack(pady=(20, 10))
 
-# 💬 Chat display below the button
 chat_display = scrolledtext.ScrolledText(
     root,
     wrap=tk.WORD,
